@@ -14,8 +14,10 @@
         <meta name="author" content="Patrik Gustafsson" />
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
-    <link href="impress.js/css/impress-demo.css" rel="stylesheet" />
     <link rel="shortcut icon" href="favicon.png" />
+    <script src="js/unimpress.js"></script>
+    
+    
 </head>
 
 <body class="impress-not-supported">
@@ -172,9 +174,14 @@ if ("ontouchstart" in document.documentElement) {
     Of course you can wrap it in any kind of "DOM ready" event, but I was too lazy to do so ;)
     
 -->
-<script src="impress.js/js/impress.js"></script>
-<script>impress().init();</script>
 
+<script>
+
+$(document).ready(function() {
+    goToByScroll('dev');
+  // Handler for .ready() called.
+});
+</script>
 
 </body>
 </html>
