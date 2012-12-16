@@ -1,6 +1,6 @@
 [submodule "lib/jquery"]
 	path = lib/jquery
 	url = git://github.com/jquery/jquery.git
-[submodule "lib/jqAnimateRotateScale"]
-	path = lib/jqAnimateRotateScale
+[submodule "lib/jqars"]
+	path = lib/jqars
 	url = git://github.com/zachstronaut/jquery-animate-css-rotate-scale.git
