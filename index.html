@@ -1,38 +1,20 @@
 <!doctype html>
-
-
-
-
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=1024" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <title>Patrik Gustafsson - mumma.nu - Software developer and educator</title>
-    
-    <meta name="description" content="" />
-        <meta name="author" content="Patrik Gustafsson" />
-
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
-    <link rel="shortcut icon" href="favicon.png" />
-    
-    <script src="http://code.jquery.com/jquery.min.js"></script>
-    <script src="https://raw.github.com/zachstronaut/jquery-css-transform/master/jquery-css-transform.js" type="text/javascript"></script>
-    <script src="lib/jqars/jquery-animate-css-rotate-scale.js"></script>
-    <script src="js/unimpress.js"></script>
-    
-    
-</head>
-
-<body class="impress-not-supported">
-
-<div class="step">
-    Hello!
-</div>
-
-<div id="impress">
-
-    <!--
+ <head>
+  <meta charset="utf-8" />
+  <meta content="width=1024" name="viewport" />
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <title>Patrik Gustafsson - mumma.nu - Software developer and educator</title>
+  <meta content="" name="description" />
+  <meta content="Patrik Gustafsson" name="author" />
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
+  <link href="favicon.png" rel="shortcut icon" />
+<script src="http://code.jquery.com/jquery.min.js"></script><script src="http://jmpressjs.github.io/jmpress.js/dist/jmpress.js"></script> </head>
+ <body class="impress-not-supported">
+  <div class="step">
+   Hello!</div>
+  <div id="impress">
+<!--
         
         Here is where interesting thing start to happen.
         
@@ -48,23 +30,15 @@
         
         It will not be rotated or scaled.
         
-    -->
-
-
-        <div id="title" class="step" data-scale="4">
-            <h1>Patrik Gustafsson</h1>
-        </div>
-
-        <div id="soft" class="step"  data-rotate="90" data-scale="5">
-            Software
-        </div>
-
-        <div id="dev" class="step" data-rotate="180" data-scale="6">
-            Development
-        </div>
-
-
-    <!--
+    -->   <div class="step" data-scale="4" id="title">
+    <h1>
+     Patrik Gustafsson</h1>
+   </div>
+   <div class="step" data-rotate="90" data-scale="5" id="soft">
+    Software</div>
+   <div class="step" data-rotate="180" data-scale="6" id="dev">
+    Development</div>
+<!--
         
         And now it gets really exiting! We move into third dimension!
         
@@ -72,10 +46,7 @@
         `data-z`. In the example below we use `data-z="-3000"` meaning that element should be
         positioned far away from us (by 3000px).
         
-    -->
-
-
-    <!--
+    --><!--
         
         This step here doesn't introduce anything new when it comes to data attributes, but you
         should notice in the demo that some words of this text are being animated.
@@ -94,10 +65,7 @@
         So basically every step element has one of three classes: `future`, `present` and `past`.
         Only one current step has the `present` class.
         
-    -->
-    
-
-    <!--
+    --><!--
         
         And the last one shows full power and flexibility of impress.js.
         
@@ -108,10 +76,7 @@
         You can of course rotate it around Z axis with `data-rotate-z` - it has exactly the same effect
         as `data-rotate` (these two are basically aliases).
         
-    -->
-
-
-    <!--
+    --><!--
         
         So to make a summary of all the possible attributes used to position presentation steps, we have:
         
@@ -125,11 +90,7 @@
         These values are used by impress.js in CSS transformation functions, so for more information consult
         CSS transfrom docs: https://developer.mozilla.org/en/CSS/transform
         
-    -->
-
-
-</div>
-
+    -->  </div>
 <!--
     
     Hint is not related to impress.js in any way.
@@ -153,17 +114,15 @@
     
     Just sayin' ;)
     
--->
-<div class="hint">
-    <p>Use a spacebar or arrow keys to navigate</p>
-</div>
+-->  <div class="hint">
+   <p>
+    Use a spacebar or arrow keys to navigate</p>
+  </div>
 <script>
 if ("ontouchstart" in document.documentElement) { 
     document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
 }
-</script>
-
-<!--
+</script><!--
     
     Last, but not least.
     
@@ -177,60 +136,11 @@ if ("ontouchstart" in document.documentElement) {
     because it should be done when the whole document is ready.
     Of course you can wrap it in any kind of "DOM ready" event, but I was too lazy to do so ;)
     
--->
-
-<script>
+--><script>
 
 $(document).ready(function() {
     goToByScroll('dev');
   // Handler for .ready() called.
 });
-</script>
-
-</body>
+</script> </body>
 </html>
-
-<!--
-    
-    Now you know more or less everything you need to build your first impress.js presentation, but before
-    you start...
-    
-    Oh, you've already cloned the code from GitHub?
-    
-    You have it open in text editor?
-    
-    Stop right there!
-    
-    That's not how you create awesome presentations. This is only a code. Implementation of the idea that
-    first needs to grow in your mind.
-    
-    So if you want to build great presentation take a pencil and piece of paper. And turn off the computer.
-    
-    Sketch, draw and write. Brainstorm your ideas on a paper. Try to build a mind-map of what you'd like
-    to present. It will get you closer and closer to the layout you'll build later with impress.js.
-    
-    Get back to the code only when you have your presentation ready on a paper. It doesn't make sense to do
-    it earlier, because you'll only waste your time fighting with positioning of useless points.
-    
-    If you think I'm crazy, please put your hands on a book called "Presentation Zen". It's all about 
-    creating awesome and engaging presentations.
-    
-    Think about it. 'Cause impress.js may not help you, if you have nothing interesting to say.
-    
--->
-
-<!--
-    
-    Are you still reading this?
-    
-    For real?
-    
-    I'm impressed! Feel free to let me know that you got that far (I'm @bartaz on Twitter), 'cause I'd like
-    to congratulate you personally :)
-    
-    But you don't have to do it now. Take my advice and take some time off. Make yourself a cup of coffee, tea,
-    or anything you like to drink. And raise a glass for me ;)
-    
-    Cheers!
-    
--->
