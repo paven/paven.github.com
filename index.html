@@ -9,10 +9,19 @@
   <meta content="Patrik Gustafsson" name="author" />
   <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
   <link href="favicon.png" rel="shortcut icon" />
-<script src="http://code.jquery.com/jquery.min.js"></script><script src="http://jmpressjs.github.io/jmpress.js/dist/jmpress.js"></script> </head>
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+ 	<script src="https://github.com/hakimel/zoom.js/js/zoom.js"></script>
+		<script>
+			document.querySelector( '#main' ).addEventListener( 'click', function( event ) {
+				event.preventDefault();
+				zoom.to({ element: event.target });
+			} );
+		</script>
+  
+</head>
  <body class="impress-not-supported">
-  <div class="step">
-   Hello!</div>
+  <div class="#main">
+   Hello!
   <div id="impress">
 <!--
         
@@ -122,25 +131,8 @@
 if ("ontouchstart" in document.documentElement) { 
     document.querySelector(".hint").innerHTML = "<p>Tap on the left or right to navigate</p>";
 }
-</script><!--
-    
-    Last, but not least.
-    
-    To make all described above really work, you need to include impress.js in the page.
-    I strongly encourage to minify it first.
-    
-    In here I just include full source of the script to make it more readable.
-    
-    You also need to call a `impress().init()` function to initialize impress.js presentation.
-    And you should do it in the end of your document. Not only because it's a good practice, but also
-    because it should be done when the whole document is ready.
-    Of course you can wrap it in any kind of "DOM ready" event, but I was too lazy to do so ;)
-    
---><script>
 
-$(document).ready(function() {
-    goToByScroll('dev');
-  // Handler for .ready() called.
-});
+</div>
+
 </script> </body>
 </html>
