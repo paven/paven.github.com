@@ -11,12 +11,7 @@
   <link href="favicon.png" rel="shortcut icon" />
   <script src="http://code.jquery.com/jquery.min.js"></script>
  	<script src="https://github.com/hakimel/zoom.js/js/zoom.js"></script>
-		<script>
-			document.querySelector( '#main' ).addEventListener( 'click', function( event ) {
-				event.preventDefault();
-				zoom.to({ element: event.target });
-			} );
-		</script>
+
   
 </head>
  <body class="impress-not-supported">
@@ -134,5 +129,16 @@ if ("ontouchstart" in document.documentElement) {
 
 </div>
 
-</script> </body>
+</script> 
+		<script>
+			document.querySelector( '#main' ).addEventListener( 'click', function( event ) {
+				event.preventDefault();
+				zoom.to({ element: event.target });
+			} );
+		</script>	
+	
+	
+</body>
+
+	
 </html>
