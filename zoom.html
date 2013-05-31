@@ -85,7 +85,17 @@
 				event.preventDefault();
 				zoom.to(element: document.querySelector( 'h2' ) );
 			} );
+			$(window).bind('keydown', function (key) {
+				var keycode;
+    				if (key == null) {
+        				keycode = event.keyCode;
+    				} else {
+        				keycode = key.keyCode;
+    				}	
+    				zoom.to(element: document.querySelector( 'h2' ) );
+			}
 		</script>
+		
 		<!--script>
 			$(document.body).attr('tabIndex', 1).bind('keyup', function(e) {
     				alert('testing');
