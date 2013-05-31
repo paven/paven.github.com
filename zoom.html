@@ -31,24 +31,7 @@
 			</div>
 		</header>
 		
-		<div id="main"><script>
-		var jq4u = 'jquery4u';
-for (n = 0; n & lt; = 7; n++) {
-    $('#' + id).append('<div class="bigcolordiv key-' + jq4u[n] + '" style="background-color:blue;">' + jq4u[n] + '</div>');
-}
- 
-$(window).bind('keydown', function (key) {
-    //jquery, 74, 81, 85, 69, 82, 89
-    var keycode;
-    if (key == null) {
-        keycode = event.keyCode;
-    } else {
-        keycode = key.keyCode;
-    }
-    $('#' + id + ' .key-' + String.fromCharCode(keycode).toLowerCase()).toggleClass('orangebg');
-});
-</script>
-			<h2>Source</h2>
+		<div id="main">			<h2>Source</h2>
 			<p>All text is from the indespensable http://slipsum.com/</p>
 
 			<h2>I'm serious as a heart attack</h2>
@@ -112,7 +95,24 @@ $(window).bind('keydown', function (key) {
     				alert('testing');
 			}
 		</script>
-		
+		<script>
+		var jq4u = 'jquery4u';
+for (n = 0; n & lt; = 7; n++) {
+    $('#' + id).append('<div class="bigcolordiv key-' + jq4u[n] + '" style="background-color:blue;">' + jq4u[n] + '</div>');
+}
+ 
+$(window).bind('keydown', function (key) {
+    //jquery, 74, 81, 85, 69, 82, 89
+    var keycode;
+    if (key == null) {
+        keycode = event.keyCode;
+    } else {
+        keycode = key.keyCode;
+    }
+    $('#' + id + ' .key-' + String.fromCharCode(keycode).toLowerCase()).toggleClass('orangebg');
+});
+</script>
+
 		<!--script>
 			$(document.body).attr('tabIndex', 1).bind('keyup', function(e) {
     				alert('testing');
