@@ -1,6 +1,3 @@
-[submodule "lib/jquery"]
-	path = lib/jquery
-	url = git://github.com/jquery/jquery.git
-[submodule "lib/jqars"]
-	path = lib/jqars
-	url = git://github.com/zachstronaut/jquery-animate-css-rotate-scale.git
+[submodule "impress.js"]
+	path = impress.js
+	url = git://github.com/paven/impress.js.git
