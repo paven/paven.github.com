@@ -1,18 +1,50 @@
 <!doctype html>
-<h>Patrik Gustafsson</h>
-<div id="coding" class="linkBox">
-	<h>coding</h>
-	<a href="https://github.com/paven" rel="me" >github</a>
-	<a href="https://blog.howtocode.se" rel="me" >howToCode</a>
-</div>
+<head>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">google.load("feeds", "1");</script>
+	<script type="text/javascript">
 
-<div id="social" class="linkBox">
-	<h>social</h>
-	<a href="https://twitter.com/paven" rel="me">twitter</a>
-	<a href="https://plus.google.com/+PatrikGustafsson" rel="me">google+</a>
-</div>
+		function initialize() {
+			var feed = new google.feeds.Feed('https://www.diigo.com/rss/user/thepaven');
+			feed.load(function(result) {
+			var container = document.getElementById("feed");
 
-<div id="personal" class="linkBox">
-	<h>personal</h>
-	<a href="https://www.flickr.com/photos/paven/" rel="me">flickr</a>
-</div>
+			if (!result.error) {
+				var container = document.getElementById("feed");
+				for (var i = 0; i < result.feed.entries.length; i++) {
+					var entry = result.feed.entries[i];
+					var div = document.createElement("div");
+					//div.setAttribute(a, entry.link)
+					var html = '<a href="' + entry.link + '" >' + entry.title+ '</a>'
+					div.innerHTML= html;
+					//div.appendChild(document.createTextNode(html));
+					container.appendChild(div);
+				}
+			}
+      });
+    }
+    google.setOnLoadCallback(initialize)
+	</script>
+</head>
+<body>
+	<h>Patrik Gustafsson</h>
+	<div id="coding" class="linkBox">
+		<h>coding</h>
+		<a href="https://github.com/paven" rel="me" >github</a>
+		<a href="https://blog.howtocode.se" rel="me" >howToCode</a>
+	</div>
+	
+	<div id="social" class="linkBox">
+		<h>social</h>
+		<a href="https://twitter.com/paven" rel="me">twitter</a>
+		<a href="https://plus.google.com/+PatrikGustafsson" rel="me">google+</a>
+	</div>
+	
+	<div id="personal" class="linkBox">
+		<h>personal</h>
+		<a href="https://www.flickr.com/photos/paven/" rel="me">flickr</a>
+	</div>
+	<div id="feed"> 
+		<h>latest links</h>
+	</div>
+</body>
