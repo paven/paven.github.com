@@ -8,11 +8,11 @@
 		var education=new Array("education", "teacher");
 
 		function initialize() {
-			diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 5, 'recent');
+			diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 20, 'recent');
 			//diigoFetcher('diigo: unread bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?read=no', 5, 'unread');
 			diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 20, 'hackRecent');
 			//diigoFetcher('diigo: unread bookmarks',hacking.join(' OR ') + '?read=no', 5, 'hackUnread');
-			diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 50, 'eduRecent');
+			diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 20, 'eduRecent');
 			//diigoFetcher('diigo: unread bookmarks',education.join(' OR ') + '?read=no', 5, 'eduUnread');
 		}
       
@@ -43,7 +43,7 @@
 					}
 				}
 			});
-			document.getElementById("elementID").style.textOverflow = "ellipsis";
+			document.getElementById(elementID).style.textOverflow = "ellipsis";
 		}
 		google.setOnLoadCallback(initialize);
 	</script>
@@ -69,7 +69,6 @@
 			color: Grey;
 		}
 		a:hover {
-			text-decoration: underline;
 			color: white;
 		}
 		.widgetBox {
@@ -182,9 +181,9 @@
 			<h>diigo: recent bookmarks</h><footer></footer>
 			loading...
 		</div>
-		<div id="eduUnread" class="widgetBox "> 
+		<!--<div id="eduUnread" class="widgetBox "> 
 			<h>diigo: unread bookmarks</h><footer></footer>
 			loading...
-		</div>
+		</div>-->
 	</div>
 </body>
