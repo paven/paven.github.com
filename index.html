@@ -8,12 +8,12 @@
 		var education=new Array("education", "teacher");
 
 		function initialize() {
-			diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 20, 'recent');
-			//diigoFetcher('diigo: unread bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?read=no', 5, 'unread');
-			diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 20, 'hackRecent');
-			//diigoFetcher('diigo: unread bookmarks',hacking.join(' OR ') + '?read=no', 5, 'hackUnread');
-			diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 20, 'eduRecent');
-			//diigoFetcher('diigo: unread bookmarks',education.join(' OR ') + '?read=no', 5, 'eduUnread');
+			diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 10, 'mumma');
+			diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 10, 'hacking');
+			diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 10, 'education');
+			
+			feedFetcher('github: updates','https://github.com/paven','https://github.com/paven.atom', 5, 'hacking', 6);
+			feedFetcher('twitter: latest posts','https://twitter.com/paven','http://www.twitrss.me/twitter_user_to_rss/?user=paven&replies=on', 5, 'mumma', 0);
 		}
       
       function pageFetcher(title, pageURL, numItems, elementID){
@@ -23,9 +23,9 @@
 		  feedFetcher(title, 
 		  'https://www.diigo.com/user/thepaven/' + search, 
 		  'https://www.diigo.com/rss/user/thepaven/' + search, 
-		  numItems, elementID);
+		  numItems, elementID, 0);
 	  }
-      function feedFetcher(title, pageURL, feedURL, numItems, elementID) {
+      function feedFetcher(title, pageURL, feedURL, numItems, elementID, substringAt) {
 			var feed = new google.feeds.Feed(feedURL);
 			if (pageURL == '' || pageURL==null) {
 				pageURL=feedURL;
@@ -33,19 +33,20 @@
 			feed.setNumEntries(numItems);
 			feed.load(function(result) {
 				var container = document.getElementById(elementID);
-				container.innerHTML= '<h><a href="' + pageURL + '">'+ title + '...</a></h><br/>\n';
+				
 				if (!result.error) {
+					container.innerHTML= container.innerHTML + '<div id="widgetBox list"><h><a href="' + pageURL + '" >'+ title + '...</a></h><br/>\n';
 					for (var i = 0; i < result.feed.entries.length; i++) {
 						var entry = result.feed.entries[i];
-						var div = document.createElement("div");
-						var html = '<a href="' + entry.link + '" >' + entry.title+ '</a> <br/>\n';
+						var html = '<a href="' + entry.link + '" >' + entry.title.substring(substringAt)+ '</a> <br/>\n';
 						container.innerHTML= container.innerHTML + html;
 					}
+					container.innerHTML= container.innerHTML + "</div>";
 				}
-			});
 			document.getElementById(elementID).style.textOverflow = "ellipsis";
-		}
-		google.setOnLoadCallback(initialize);
+		});
+	}
+	google.setOnLoadCallback(initialize);
 	</script>
 	<style>body {
 			background-color: Black;
@@ -61,7 +62,6 @@
 		a {
 			text-decoration: none;
 			color: DarkGrey;
-			overflow: hidden;
 			white-space:nowrap;
 			text-overflow;: ellipsis;
 		}
@@ -73,22 +73,11 @@
 		}
 		.widgetBox {
 			display: block;
-			overflow: hidden;
 			max-height: 20em;
 			text-overflow;: ellipsis;
 			margin-bottom: 1em;
 		}
 		
-		.widgetBox:after{
-			background-image: linear-gradient( to left, #000);
-			
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			left: 90%;
-			height: 90%;
-			content: '';
-		}
 		.column {
 			float: left;
 			margin-right: 2%;
@@ -101,10 +90,12 @@
 			border-bottom: 1pt solid white;
 			border-right: 1pt solid white;
 			padding: 1%;
+			text-overflow = ellipsis;
 		}
 		#mumma {
 			border-bottom: 1pt solid turquoise;
 			border-right: 1pt solid turquoise;
+			
 		}
 		#mumma h a{
 			color: turquoise;
@@ -142,20 +133,15 @@
 </head>
 <body>
 	<div id="mumma" class="column">
-		<div id="me" class="widgetBox">
+		<div id="me" class="widgetBox list">
 			<h1>Patrik Gustafsson</h1>
 			<a href="https://twitter.com/paven" rel="me">twitter</a>
 			<a href="https://plus.google.com/+PatrikGustafsson" rel="me">google+</a>
 			<a href="https://www.flickr.com/photos/paven/" rel="me">flickr</a>
+			<a href="https://mat.mumma.nu" rel="me">mat</a>
+			<a href="https://ratnings.mumma.nu" rel="me">ratnings</a>
+			<a href="https://blog.mumma.nu" rel="me">mumma</a>
 		</div>
-		<div id="recent" class="widgetBox list"> 
-			<h>diigo: recent bookmarks</h>
-			loading...
-		</div>
-		<!--<div id="unread" class="widgetBox list"> 
-			<h>diigo: unread bookmarks</h>
-			loading...
-		</div>-->
 	</div>
 	<div id="hacking" class="column">
 		<div id="hackMe" class="widgetBox"> 
@@ -163,27 +149,13 @@
 			<a href="https://github.com/paven" rel="me" >github</a>
 			<a href="https://blog.howtocode.se" rel="me" >howToCode</a>
 		</div>
-		<div id="hackRecent" class="widgetBox list"> 
-			<h>diigo: recent bookmarks</h>
-			loading...
-		</div>
-		<!--<div id="hackUnread" class="widgetBox list"> 
-			<h>diigo: unread bookmarks</h>
-			loading...
-		</div>-->
+
 	</div>
 	<div id="education" class="column">
 		<div id="eduMe" class="widgetBox "> 
 			<h1>Educator</h1>
 			<a href="https://blog.howtoknow.se" rel="me" >howToKnow</a>
 		</div>
-		<div id="eduRecent" class="widgetBox "> 
-			<h>diigo: recent bookmarks</h><footer></footer>
-			loading...
-		</div>
-		<!--<div id="eduUnread" class="widgetBox "> 
-			<h>diigo: unread bookmarks</h><footer></footer>
-			loading...
-		</div>-->
+
 	</div>
 </body>
