@@ -8,15 +8,15 @@
 		var education=new Array("education", "teacher");
 
 		function initialize() {
-			diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 10, 'mumma');
-			diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 10, 'hacking');
-			diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 10, 'education');
+			//diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 10, 'mumma');
+			//diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 10, 'hacking');
+			//diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 10, 'education');
 			
-			feedFetcher('Goodreads: education books', 'https://www.goodreads.com/review/list/7260564?shelf=edu', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=edu', 5, "education", 0);
+			//feedFetcher('Goodreads: education books', 'https://www.goodreads.com/review/list/7260564?shelf=edu', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=edu', 5, "education", 0);
 		
-		feedFetcher('Goodreads: development books', 'https://www.goodreads.com/review/list/7260564?shelf=dev', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=dev', 5, "hacking", 0);
+		//feedFetcher('Goodreads: development books', 'https://www.goodreads.com/review/list/7260564?shelf=dev', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=dev', 5, "hacking", 0);
 			
-			feedFetcher('github: updates','https://github.com/paven','https://github.com/paven.atom', 5, 'hacking', 6);
+			//feedFetcher('github: updates','https://github.com/paven','https://github.com/paven.atom', 5, 'hacking', 6);
 			feedFetcher('twitter: latest posts','https://twitter.com/paven','http://www.twitrss.me/twitter_user_to_rss/?user=paven&replies=on', 5, 'mumma', 0);
 		}
       
