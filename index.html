@@ -1,164 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<script type="text/javascript" src="https://rss2json.com/gfapi.js"></script>
-	<script type="text/javascript">google.load("feeds", "1");</script>
-	<script type="text/javascript">
-		
-		var hacking=new Array("hacking", "hacker", "howToCode", "development", "programming", "opensource", "java", "software");
-		var education=new Array("education", "teacher");
-
-		function initialize() {
-			//diigoFetcher('diigo: recent bookmarks','NOT ' + hacking.join(' NOT ') + ' NOT ' + education.join(' NOT ') + '?sort=created', 10, 'mumma');
-			//diigoFetcher('diigo: recent bookmarks',hacking.join(' OR ') + '?sort=created!type=read', 10, 'hacking');
-			//diigoFetcher('diigo: recent bookmarks',education.join(' OR ') + '?sort=created!read=yes', 10, 'education');
-			
-			//feedFetcher('Goodreads: education books', 'https://www.goodreads.com/review/list/7260564?shelf=edu', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=edu', 5, "education", 0);
-		
-		//feedFetcher('Goodreads: development books', 'https://www.goodreads.com/review/list/7260564?shelf=dev', 'https://www.goodreads.com/review/list_rss/7260564?key=575a2c02c45939c4604a8cd5fc55fe0a69824e36&shelf=dev', 5, "hacking", 0);
-			
-			//feedFetcher('github: updates','https://github.com/paven','https://github.com/paven.atom', 5, 'hacking', 6);
-			feedFetcher('twitter: latest posts','https://twitter.com/paven','http://www.twitrss.me/twitter_user_to_rss/?user=paven&replies=on', 5, 'mumma', 0);
-		}
-      
-      function pageFetcher(title, pageURL, numItems, elementID){
-		  //javascript:var links = document.getElementsByTagName('link'); for (var i = 0; links[i] && links[i].getAttribute('type') != 'application/rss+xml'; ++i); if (links[i] && links[i].hasAttribute('href')) alert(links[i].getAttribute('href'));
-	  }
-      function diigoFetcher(title, search, numItems, elementID){
-		  feedFetcher(title, 
-		  'https://www.diigo.com/user/thepaven/' + search, 
-		  'https://www.diigo.com/rss/user/thepaven/' + search, 
-		  numItems, elementID, 0);
-	  }
-      function feedFetcher(title, pageURL, feedURL, numItems, elementID, substringAt) {
-			var feed = new google.feeds.Feed(feedURL);
-			if (pageURL == '' || pageURL==null) {
-				pageURL=feedURL;
-			}
-			feed.setNumEntries(numItems);
-			feed.load(function(result) {
-				var container = document.getElementById(elementID);
-				
-				if (!result.error) {
-					container.innerHTML= container.innerHTML + '<div id="widgetBox list"><h><a href="' + pageURL + '" >'+ title + '...</a></h><br/>\n';
-					for (var i = 0; i < result.feed.entries.length; i++) {
-						var entry = result.feed.entries[i];
-						var html = '<a href="' + entry.link + '" >' + entry.title.substring(substringAt)+ '</a> <br/>\n';
-						container.innerHTML= container.innerHTML + html;
-					}
-					container.innerHTML= container.innerHTML + "</div>";
-				}
-			document.getElementById(elementID).style.textOverflow = "ellipsis";
-		});
-	}
-	google.setOnLoadCallback(initialize);
-	</script>
-	<style>body {
-			background-color: Black;
-			color: grey;
-			}
-		h {
-			font-family:"Avenir", sans serif;
-		}
-		h1 {
-			font-family:"Avenir", sans serif;
-		}
-		a {
-			text-decoration: none;
-			color: DarkGrey;
-			white-space:nowrap;
-			text-overflow;: ellipsis;
-		}
-		a:visited {
-			color: Grey;
-		}
-		a:hover {
-			color: white;
-		}
-		.widgetBox {
-			display: block;
-			max-height: 20em;
-			text-overflow;: ellipsis;
-			margin-bottom: 1em;
-		}
-		
-		.column {
-			float: left;
-			margin-right: 2%;
-			margin-bottom: 2%;
-			width: 29%;
-			max-width: 30em;
-			min-width: 15em;
-			display: block;
-			overflow: hidden;
-			border-bottom: 1pt solid white;
-			border-right: 1pt solid white;
-			padding: 1%;
-			text-overflow = ellipsis;
-		}
-		#mumma {
-			border-bottom: 1pt solid turquoise;
-			border-right: 1pt solid turquoise;
-			
-		}
-		#mumma h a{
-			color: turquoise;
-		}
-		#mumma h1{
-			color: turquoise;
-		}
-		#hacking {
-			border-bottom: 1pt solid purple;
-			border-right: 1pt solid purple;
-		}
-		#hacking h a{
-			color: purple;
-		}
-		#hacking h1{
-			color: purple;
-		}
-		#education {
-			border-bottom: 1pt solid orange;
-			border-right: 1pt solid orange;
-		}
-		#education h a{
-			color: orange;
-		}
-		#education h1{
-			color: orange;
-		}
-		.widgetBox h1 {
-			font-size:120%;
-			margin: 0pt;
-			margin-bottom: 1pt;
-		}
-
-		</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patrik Gustafsson - Software Development Leader</title>
+    <style>
+        body {
+            background-color: black;
+            color: grey;
+            font-family: "Avenir", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1, p, a {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        .column {
+            float: left;
+            margin-right: 2%;
+            margin-bottom: 2%;
+            width: 29%;
+            max-width: 30em;
+            min-width: 15em;
+            display: block;
+            overflow: hidden;
+            padding: 1%;
+            --column-color: turquoise; /* Default color, can be overridden for each column */
+            border-bottom: 1pt solid var(--column-color);
+            border-right: 1pt solid var(--column-color);
+        }
+        #boardgames {
+            --column-color: orange; /* Define a CSS variable for boardgames column color */
+        }
+        #roleplay {
+            --column-color: turquoise; /* Define a CSS variable for roleplay column color */
+        }
+        #work {
+            --column-color: magenta; /* Define a CSS variable for work column color */
+        }
+        .column a {
+            color: var(--column-color);
+        }
+        .column h1 {
+            color: var(--column-color);
+        }
+    </style>
 </head>
 <body>
-	<div id="mumma" class="column">
-		<div id="me" class="widgetBox list">
-			<h1>Patrik Gustafsson</h1>
-			<a href="https://twitter.com/paven" rel="me">twitter</a>
-			<a href="https://plus.google.com/+PatrikGustafsson" rel="me">google+</a>
-			<a href="https://www.flickr.com/photos/paven/" rel="me">flickr</a>
-			<a href="https://mat.mumma.nu" rel="me">mat</a>
-			<a href="https://ratnings.mumma.nu" rel="me">ratnings</a>
-			<a href="https://blog.mumma.nu" rel="me">mumma</a>
-		</div>
-	</div>
-	<div id="hacking" class="column">
-		<div id="hackMe" class="widgetBox"> 
-			<h1>Hacker</h1>
-			<a href="https://github.com/paven" rel="me" >github</a>
-			<a href="https://blog.howtocode.se" rel="me" >howToCode</a>
-		</div>
-
-	</div>
-	<div id="education" class="column">
-		<div id="eduMe" class="widgetBox "> 
-			<h1>Educator</h1>
-			<a href="https://blog.howtoknow.se" rel="me" >howToKnow</a>
-		</div>
-
-	</div>
+<div id="boardgames" class="column">
+    <h1>Boardgames</h1>
+    <p>Discover my favorite boardgames and strategies.</p>
+    <a href="https://boardgamegeek.com/collection/user/paven?sort=rating&sortdir=desc&rankobjecttype=subtype&rankobjectid=1&columns=title%7Crank%7Crating%7Cbggrating&geekranks=Board+Game+Rank&excludesubtype=boardgameexpansion&wanttoplay=1&objecttype=thing&ff=1&subtype=boardgame" rel="me">Boardgame Collection</a>
+</div>
+<div id="roleplay" class="column">
+    <h1>Roleplay</h1>
+    <p>Explore the realms of roleplaying and storytelling.</p>
+    <a href="http://regin.mumma.nu/" rel="me">Regin - Modern Fantasy World <span style="color: var(--column-color);">&#x1F1F8;&#x1F1EA;</span></a>
+</div>
+<div id="work" class="column">
+    <h1>Work</h1>
+    <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
+    <a href="https://github.com/paven" rel="me">GitHub</a>
+    <br/>
+    <a href="https://www.howtoknow.se" rel="me">How To Know AB - Unleash People and Product</a>
+</div>
+<!-- Add more columns if needed... -->
 </body>
+</html>
