@@ -5,7 +5,7 @@ date: 2011-08-18
 categories: society
 ---
 
-Som lärare ser jag hur kursplaner idag kan vara ett hinder för pedagogiska upplägg. Med rådande system bestäms vad som ska läras och i vilken ordning - skrivet efter experters egna visioner om en bra kurs, inte nödvändigtvis kompatibelt med vad som motiverar elever.
+Som svar på [Jans fråga](https://jansyrligheter.wordpress.com/2011/08/18/ska-larare-valja-innehall/) om huruvida lärare ska välja innehåll - här är min syn på saken.
 
 ## Problemet med packade kursplaner
 
@@ -15,7 +15,7 @@ Innehåller A-kursen vad A-kursen innehåller - och saker som annars kunnat vara
 
 ## Kursplaner som skydd - men till vilket pris?
 
-Tydliga kursplaner kan vara ett försvar mot dåliga lärare. Men jag tror att både elever och lärare skulle må bättre med andra motvikter. Det borde finnas bättre sätt att hantera lärare som tar med sina politiska åsikter in i klassrummet och inte lämnar utrymme för andras.
+Tydliga kursplaner kan vara ett försvar mot dåliga lärare, som du skriver Jan. Men jag tror att både elever och lärare skulle må bättre med andra motvikter. Det borde finnas bättre sätt att hantera lärare som tar med sina politiska åsikter in i klassrummet och inte lämnar utrymme för andras.
 
 Kursplaner är idag det enda verktyget för likvärdig bedömning mellan skolor - även om de är bristfälliga på grund av otydlighet och tolkningsutrymme. Till systemets fördel kan man säga att kursplaner och betyg fungerar som motivation för elever som söker godkänt snarare än kunskap.
 
