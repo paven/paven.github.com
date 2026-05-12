@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +44,9 @@
         #work {
             --column-color: magenta; /* Define a CSS variable for work column color */
         }
+        #society {
+            --column-color: lime;
+        }
         .column a {
             color: var(--column-color);
         }
@@ -61,12 +66,23 @@
     <p>Explore the realms of roleplaying and storytelling.</p>
     <a href="http://regin.mumma.nu/" rel="me">Regin - Modern Fantasy World <span style="color: var(--column-color);">&#x1F1F8;&#x1F1EA;</span></a>
 </div>
+<div id="society" class="column">
+    <h1>Society</h1>
+    <p>Hacking the systems we live in.</p>
+    {% assign society_posts = site.categories.society | limit: 3 %}
+    {% for post in society_posts %}
+    <a href="{{ post.url }}">{{ post.title }}</a><br/>
+    {% endfor %}
+    <a href="/society">All posts &rarr;</a>
+</div>
 <div id="work" class="column">
     <h1>Work</h1>
     <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
+    <a href="https://acyclic.eu" rel="me">acyclic.eu - Developer, Leader &amp; Organizational Designer</a>
+    <br/>
     <a href="https://github.com/paven" rel="me">GitHub</a>
     <br/>
-    <a href="https://www.howtoknow.se" rel="me">How To Know AB - Unleash People and Product</a>
+    <a href="https://www.howtoknow.se" rel="me">How To Know AB - elevating people and products</a>
 </div>
 <!-- Add more columns if needed... -->
 </body>

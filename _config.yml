@@ -1,0 +1,6 @@
+title: mumma.nu
+url: https://mumma.nu
+baseurl: ""
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+exclude: [README.md]

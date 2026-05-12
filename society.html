@@ -1,0 +1,49 @@
+---
+layout: default
+title: Society
+---
+<style>
+    .society-header {
+        border-bottom: 1pt solid lime;
+        padding-bottom: 0.5em;
+        margin-bottom: 2em;
+    }
+    .society-header h1 {
+        color: lime;
+        margin: 0;
+    }
+    .post-item {
+        margin-bottom: 1.5em;
+        max-width: 40em;
+        border-bottom: 1pt solid #222;
+        padding-bottom: 1em;
+    }
+    .post-item a {
+        color: lime;
+        font-size: 1.1em;
+        display: block;
+        margin-bottom: 0.2em;
+    }
+    .post-item .date {
+        color: #555;
+        font-size: 0.85em;
+    }
+    .back {
+        display: block;
+        margin-bottom: 2em;
+        font-size: 0.85em;
+    }
+</style>
+
+<a class="back" href="/">&larr; mumma.nu</a>
+
+<div class="society-header">
+    <h1>Society</h1>
+</div>
+
+{% for post in site.categories.society %}
+<div class="post-item">
+    <a href="{{ post.url }}">{{ post.title }}</a>
+    <span class="date">{{ post.date | date: "%Y-%m-%d" }}</span>
+</div>
+{% endfor %}

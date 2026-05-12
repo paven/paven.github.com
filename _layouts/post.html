@@ -1,0 +1,65 @@
+---
+layout: default
+---
+<style>
+    .post-header {
+        border-bottom: 1pt solid lime;
+        padding-bottom: 1em;
+        margin-bottom: 2em;
+        max-width: 40em;
+    }
+    .post-header h1 {
+        color: lime;
+        margin: 0 0 0.3em 0;
+    }
+    .post-date {
+        color: #555;
+        font-size: 0.85em;
+    }
+    .post-back {
+        display: block;
+        margin-bottom: 2em;
+        font-size: 0.85em;
+    }
+    .post-content {
+        max-width: 40em;
+        line-height: 1.7;
+    }
+    .post-content h2 {
+        color: lime;
+        margin-top: 2em;
+    }
+    .post-content h3 {
+        color: #888;
+        margin-top: 1.5em;
+    }
+    .post-content table {
+        border-collapse: collapse;
+        margin: 1em 0;
+    }
+    .post-content th {
+        color: lime;
+        border-bottom: 1pt solid lime;
+        padding: 0.3em 1em 0.3em 0;
+        text-align: left;
+    }
+    .post-content td {
+        padding: 0.2em 1em 0.2em 0;
+        border-bottom: 1pt solid #222;
+    }
+    .post-content code {
+        color: lime;
+        font-size: 0.9em;
+    }
+</style>
+
+<a class="post-back" href="/blog">&larr; Blog</a>
+
+<div class="post-header">
+    <h1>{{ page.title }}</h1>
+    <span class="post-date">{{ page.date | date: "%Y-%m-%d" }}</span>
+</div>
+
+<div class="post-content">
+    {{ content }}
+</div>
