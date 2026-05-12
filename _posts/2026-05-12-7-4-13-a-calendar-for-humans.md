@@ -57,7 +57,7 @@ The extra day is called **Leap** - as in leaping into the new year. It lives out
 
 ## Why This Is a Society Hack
 
-You cannot fix the calendar by yourself. But you can name your months. You can build systems that think in these terms. You can write dates as `Frost 7` and let people ask questions.
+You cannot fix the calendar by yourself. But you can name your months. You can build systems that think in these terms. You can write dates as `7 Frost` and let people ask questions.
 
 Every alternative calendar in history started as someone's private notation. The French Revolutionary calendar lasted twelve years. The International Fixed Calendar was used by Eastman Kodak for decades. The Ethiopian calendar is still in use today.
 
