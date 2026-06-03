@@ -56,6 +56,12 @@
         .column h1 {
             color: var(--column-color);
         }
+        .posts a::before {
+            content: "· ";
+        }
+        .posts a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -72,10 +78,12 @@
 <div id="society" class="column">
     <h1>Society</h1>
     <p>Hacking the systems we live in.</p>
+    <div class="posts">
     {% assign society_posts = site.categories.society | limit: 3 %}
     {% for post in society_posts %}
     <a href="{{ post.url }}">{{ post.title }}</a><br/>
     {% endfor %}
+    </div>
     <a href="/society">All posts &rarr;</a>
 </div>
 <div id="acyclic" class="column">
@@ -83,18 +91,22 @@
     <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
     <a href="https://github.com/acyclic-eu" rel="me">GitHub</a>
     <br/>
+    <div class="posts">
     {% for post in site.data.acyclic_posts %}
     <a href="{{ post.url }}">{{ post.title }}</a><br/>
     {% endfor %}
+    </div>
 </div>
 <div id="howtoknow" class="column">
     <h1><a href="https://www.howtoknow.se" rel="me">How To Know</a></h1>
     <p>Elevating people and products.</p>
     <a href="https://github.com/howtoknow" rel="me">GitHub</a>
     <br/>
+    <div class="posts">
     {% for post in site.data.howtoknow_posts %}
     <a href="{{ post.url }}">{{ post.title }}</a><br/>
     {% endfor %}
+    </div>
 </div>
 <!-- Add more columns if needed... -->
 </body>
