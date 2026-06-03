@@ -83,39 +83,19 @@
     <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
     <a href="https://github.com/acyclic-eu" rel="me">GitHub</a>
     <br/>
-    <div id="acyclic-posts"></div>
+    {% for post in site.data.acyclic_posts %}
+    <a href="{{ post.url }}">{{ post.title }}</a><br/>
+    {% endfor %}
 </div>
 <div id="howtoknow" class="column">
     <h1><a href="https://www.howtoknow.se" rel="me">How To Know</a></h1>
     <p>Elevating people and products.</p>
     <a href="https://github.com/howtoknow" rel="me">GitHub</a>
     <br/>
-    <div id="howtoknow-posts"></div>
+    {% for post in site.data.howtoknow_posts %}
+    <a href="{{ post.url }}">{{ post.title }}</a><br/>
+    {% endfor %}
 </div>
 <!-- Add more columns if needed... -->
-<script>
-function loadFeed(feedUrl, containerId) {
-    fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(feedUrl))
-        .then(r => r.json())
-        .then(data => {
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(data.contents, 'text/xml');
-            const entries = xml.querySelectorAll('entry');
-            const container = document.getElementById(containerId);
-            Array.from(entries).slice(0, 3).forEach(entry => {
-                const title = entry.querySelector('title').textContent;
-                const link = entry.querySelector('link').getAttribute('href');
-                const a = document.createElement('a');
-                a.href = link;
-                a.textContent = title;
-                container.appendChild(a);
-                container.appendChild(document.createElement('br'));
-            });
-        })
-        .catch(() => {});
-}
-loadFeed('https://acyclic.eu/atom.xml', 'acyclic-posts');
-loadFeed('https://www.howtoknow.se/atom.xml', 'howtoknow-posts');
-</script>
 </body>
 </html>
