@@ -38,8 +38,8 @@
         #boardgames {
             --column-color: orange; /* Define a CSS variable for boardgames column color */
         }
-        #roleplay {
-            --column-color: turquoise; /* Define a CSS variable for roleplay column color */
+        #regin {
+            --column-color: white;
         }
         #acyclic {
             --column-color: rgb(225, 100, 140);
@@ -70,10 +70,15 @@
     <p>Discover my favorite boardgames and strategies.</p>
     <a href="https://boardgamegeek.com/collection/user/paven?sort=rating&sortdir=desc&rankobjecttype=subtype&rankobjectid=1&columns=title%7Crank%7Crating%7Cbggrating&geekranks=Board+Game+Rank&excludesubtype=boardgameexpansion&wanttoplay=1&objecttype=thing&ff=1&subtype=boardgame" rel="me">Boardgame Collection</a>
 </div>
-<div id="roleplay" class="column">
-    <h1>Roleplay</h1>
-    <p>Explore the realms of roleplaying and storytelling.</p>
-    <a href="http://regin.mumma.nu/" rel="me">Regin - Modern Fantasy World <span style="color: var(--column-color);">&#x1F1F8;&#x1F1EA;</span></a>
+<div id="regin" class="column">
+    <h1><a href="http://regin.mumma.nu/" rel="me">Regin</a></h1>
+    <p>Modern fantasy roleplaying world. <span>&#x1F1F8;&#x1F1EA;</span></p>
+    <div class="posts">
+    {% for post in site.data.regin_posts %}
+    <a href="{{ post.url }}">{{ post.title }}</a><br/>
+    {% endfor %}
+    </div>
+    <a href="http://regin.mumma.nu/">All posts &rarr;</a>
 </div>
 <div id="society" class="column">
     <h1>Society</h1>

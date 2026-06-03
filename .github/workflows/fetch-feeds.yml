@@ -38,6 +38,7 @@ jobs:
           os.makedirs('_data', exist_ok=True)
           write_yml('_data/acyclic_posts.yml', fetch_posts('https://acyclic.eu/atom.xml'))
           write_yml('_data/howtoknow_posts.yml', fetch_posts('https://www.howtoknow.se/atom.xml'))
+          write_yml('_data/regin_posts.yml', fetch_posts('http://regin.mumma.nu/atom.xml'))
           EOF
 
       - name: Commit if changed
