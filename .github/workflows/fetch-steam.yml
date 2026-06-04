@@ -32,11 +32,12 @@ jobs:
 
           owned = fetch(f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={key}&steamid={steamid}&include_appinfo=true&include_played_free_games=true&format=json')
           all_games = owned.get('response', {}).get('games', [])
-          all_games.sort(key=lambda g: g.get('playtime_forever', 0), reverse=True)
 
           games.sort(key=lambda g: g.get('playtime_2weeks', 0), reverse=True)
           recent_ids = {g['appid'] for g in games}
+
           fillers = [g for g in all_games if g['appid'] not in recent_ids]
+          fillers.sort(key=lambda g: g.get('rtime_last_played', 0), reverse=True)
 
           top = (games + fillers)[:3]
 
