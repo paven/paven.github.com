@@ -1,9 +1,9 @@
-- name: 'Sid Meier''s Civilization V'
-  url: 'https://store.steampowered.com/app/8930'
-  hours: 2028.7
 - name: 'Stellaris'
   url: 'https://store.steampowered.com/app/281990'
   hours: 1900.5
-- name: 'Sid Meier''s Civilization VI'
-  url: 'https://store.steampowered.com/app/289070'
-  hours: 938.4
+- name: 'Cities: Skylines'
+  url: 'https://store.steampowered.com/app/255710'
+  hours: 448.0
+- name: 'Baldur''s Gate 3'
+  url: 'https://store.steampowered.com/app/1086940'
+  hours: 57.8
