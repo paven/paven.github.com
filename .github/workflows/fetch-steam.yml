@@ -30,14 +30,15 @@ jobs:
           recent = fetch(f'https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key={key}&steamid={steamid}&format=json')
           games = recent.get('response', {}).get('games', [])
 
-          if not games:
-              owned = fetch(f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={key}&steamid={steamid}&include_appinfo=true&include_played_free_games=true&format=json')
-              games = owned.get('response', {}).get('games', [])
-              games.sort(key=lambda g: g.get('playtime_forever', 0), reverse=True)
-          else:
-              games.sort(key=lambda g: g.get('playtime_2weeks', 0), reverse=True)
+          owned = fetch(f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={key}&steamid={steamid}&include_appinfo=true&include_played_free_games=true&format=json')
+          all_games = owned.get('response', {}).get('games', [])
+          all_games.sort(key=lambda g: g.get('playtime_forever', 0), reverse=True)
 
-          top = games[:3]
+          games.sort(key=lambda g: g.get('playtime_2weeks', 0), reverse=True)
+          recent_ids = {g['appid'] for g in games}
+          fillers = [g for g in all_games if g['appid'] not in recent_ids]
+
+          top = (games + fillers)[:3]
 
           os.makedirs('_data', exist_ok=True)
           with open('_data/steam_games.yml', 'w') as f:
