@@ -52,6 +52,9 @@
         #bluesky {
             --column-color: rgb(50, 170, 255);
         }
+        #mastodon {
+            --column-color: rgb(140, 120, 255);
+        }
         .column a {
             color: var(--column-color);
         }
@@ -75,11 +78,7 @@
 <div id="regin" class="column">
     <h1><a href="http://regin.mumma.nu/" rel="me">Regin</a></h1>
     <p>Modern fantasy roleplaying world. <span>&#x1F1F8;&#x1F1EA;</span></p>
-    <div class="posts">
-    {% for post in site.data.regin_posts %}
-    <a href="{{ post.url }}">{{ post.title }}</a><br/>
-    {% endfor %}
-    </div>
+    <div class="posts" id="regin-posts"><span style="color:grey">Loading...</span></div>
     <a href="http://regin.mumma.nu/">All posts &rarr;</a>
 </div>
 <div id="society" class="column">
@@ -98,11 +97,7 @@
     <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
     <a href="https://github.com/acyclic-eu" rel="me">GitHub</a>
     <br/>
-    <div class="posts">
-    {% for post in site.data.acyclic_posts %}
-    <a href="{{ post.url }}">{{ post.title }}</a><br/>
-    {% endfor %}
-    </div>
+    <div class="posts" id="acyclic-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://acyclic.eu/blog/">All posts &rarr;</a>
 </div>
 <div id="howtoknow" class="column">
@@ -110,18 +105,45 @@
     <p>Elevating people and products.</p>
     <a href="https://github.com/howtoknow" rel="me">GitHub</a>
     <br/>
-    <div class="posts">
-    {% for post in site.data.howtoknow_posts %}
-    <a href="{{ post.url }}">{{ post.title }}</a><br/>
-    {% endfor %}
-    </div>
+    <div class="posts" id="howtoknow-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://www.howtoknow.se/blog/">All posts &rarr;</a>
+</div>
+<div id="mastodon" class="column">
+    <h1><a href="https://fosstodon.org/@paven" rel="me">Mastodon</a></h1>
+    <div class="posts" id="mastodon-posts"><span style="color:grey">Loading...</span></div>
+    <a href="https://fosstodon.org/@paven">All posts &rarr;</a>
 </div>
 <div id="bluesky" class="column">
     <h1><a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky</a></h1>
     <div class="posts" id="bluesky-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://bsky.app/profile/acyclic.eu">All posts &rarr;</a>
 </div>
+<script>
+function loadAtomFeed(url, containerId) {
+    fetch(url)
+        .then(r => r.text())
+        .then(text => {
+            const xml = new DOMParser().parseFromString(text, 'text/xml');
+            const entries = Array.from(xml.querySelectorAll('entry')).slice(0, 3);
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            entries.forEach(entry => {
+                const title = entry.querySelector('title').textContent;
+                const link = entry.querySelector('link').getAttribute('href');
+                const a = document.createElement('a');
+                a.href = link;
+                a.textContent = title;
+                container.appendChild(a);
+                container.appendChild(document.createElement('br'));
+            });
+            if (!entries.length) container.textContent = 'No posts found.';
+        })
+        .catch(() => { document.getElementById(containerId).textContent = 'Could not load posts.'; });
+}
+loadAtomFeed('https://acyclic.eu/atom.xml', 'acyclic-posts');
+loadAtomFeed('https://howtoknow.se/atom.xml', 'howtoknow-posts');
+loadAtomFeed('http://regin.mumma.nu/atom.xml', 'regin-posts');
+</script>
 <script>
 fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=acyclic.eu&limit=3')
     .then(r => r.json())
@@ -145,6 +167,26 @@ fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=acycli
     })
     .catch(() => {
         document.getElementById('bluesky-posts').textContent = 'Could not load posts.';
+    });
+</script>
+<script>
+fetch('https://fosstodon.org/api/v1/accounts/110272677670008247/statuses?limit=3&exclude_replies=true&exclude_reblogs=true')
+    .then(r => r.json())
+    .then(posts => {
+        const container = document.getElementById('mastodon-posts');
+        container.innerHTML = '';
+        (posts || []).forEach(post => {
+            const text = post.content.replace(/<[^>]+>/g, '');
+            const a = document.createElement('a');
+            a.href = post.url;
+            a.textContent = text.length > 80 ? text.slice(0, 80) + '…' : text;
+            container.appendChild(a);
+            container.appendChild(document.createElement('br'));
+        });
+        if (!posts || posts.length === 0) container.textContent = 'No posts found.';
+    })
+    .catch(() => {
+        document.getElementById('mastodon-posts').textContent = 'Could not load posts.';
     });
 </script>
 </body>
