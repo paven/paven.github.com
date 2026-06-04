@@ -55,6 +55,9 @@
         #trakt {
             --column-color: rgb(237, 28, 36);
         }
+        #steam {
+            --column-color: rgb(100, 190, 240);
+        }
         #lastfm {
             --column-color: rgb(210, 0, 0);
         }
@@ -124,6 +127,16 @@
     <p>What I've been listening to.</p>
     <div class="posts" id="lastfm-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://www.last.fm/user/Paven/listening-report">All history &rarr;</a>
+</div>
+<div id="steam" class="column">
+    <h1><a href="https://steamcommunity.com/profiles/76561198031322043" rel="me">Steam</a></h1>
+    <p>Most played recently.</p>
+    <div class="posts">
+    {% for game in site.data.steam_games %}
+    <a href="{{ game.url }}">{{ game.name }}</a> <span style="color:grey">{{ game.hours }}h</span><br/>
+    {% endfor %}
+    </div>
+    <a href="https://steamcommunity.com/profiles/76561198031322043/games/">All games &rarr;</a>
 </div>
 <div id="trakt" class="column">
     <h1><a href="https://trakt.tv/users/thepaven" rel="me">Trakt</a></h1>
