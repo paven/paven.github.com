@@ -52,6 +52,9 @@
         #bluesky {
             --column-color: rgb(50, 170, 255);
         }
+        #trakt {
+            --column-color: rgb(237, 28, 36);
+        }
         #mastodon {
             --column-color: rgb(140, 120, 255);
         }
@@ -112,6 +115,12 @@
     <h1><a href="https://fosstodon.org/@paven" rel="me">Mastodon</a></h1>
     <div class="posts" id="mastodon-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://fosstodon.org/@paven">All posts &rarr;</a>
+</div>
+<div id="trakt" class="column">
+    <h1><a href="https://trakt.tv/users/thepaven" rel="me">Trakt</a></h1>
+    <p>What I've been watching.</p>
+    <div class="posts" id="trakt-posts"><span style="color:grey">Loading...</span></div>
+    <a href="https://trakt.tv/users/thepaven/history">All history &rarr;</a>
 </div>
 <div id="bluesky" class="column">
     <h1><a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky</a></h1>
@@ -188,6 +197,34 @@ fetch('https://fosstodon.org/api/v1/accounts/110272677670008247/statuses?limit=3
     .catch(() => {
         document.getElementById('mastodon-posts').textContent = 'Could not load posts.';
     });
+</script>
+<script>
+fetch('https://api.trakt.tv/users/thepaven/history?limit=3', {
+    headers: {
+        'Content-Type': 'application/json',
+        'trakt-api-version': '2',
+        'trakt-api-key': '259ce40bbbbc3ebcbed62b6a9f03c1f726c2af15ea69939a0e1b87b81d73db92'
+    }
+})
+    .then(r => r.json())
+    .then(items => {
+        const container = document.getElementById('trakt-posts');
+        container.innerHTML = '';
+        (items || []).forEach(item => {
+            const a = document.createElement('a');
+            if (item.type === 'movie') {
+                a.href = `https://trakt.tv/movies/${item.movie.ids.slug}`;
+                a.textContent = item.movie.title;
+            } else {
+                a.href = `https://trakt.tv/shows/${item.show.ids.slug}`;
+                a.textContent = `${item.show.title} S${String(item.episode.season).padStart(2,'0')}E${String(item.episode.number).padStart(2,'0')}`;
+            }
+            container.appendChild(a);
+            container.appendChild(document.createElement('br'));
+        });
+        if (!items || items.length === 0) container.textContent = 'No history found.';
+    })
+    .catch(() => { document.getElementById('trakt-posts').textContent = 'Could not load history.'; });
 </script>
 </body>
 </html>
