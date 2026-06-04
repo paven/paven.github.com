@@ -12,7 +12,9 @@
             color: grey;
             font-family: "Avenir", sans-serif;
             margin: 0;
-            padding: 0;
+            padding: 1.5em;
+            column-width: 17.5em;
+            column-gap: 1em;
         }
         h1, p, a {
             margin: 0;
@@ -22,16 +24,12 @@
             text-decoration: none;
         }
         .column {
-            float: left;
-            margin-right: 2%;
-            margin-bottom: 2%;
-            width: 29%;
-            max-width: 30em;
-            min-width: 15em;
-            display: block;
-            overflow: hidden;
-            padding: 1%;
-            --column-color: turquoise; /* Default color, can be overridden for each column */
+            break-inside: avoid;
+            width: 100%;
+            margin-bottom: 1em;
+            padding: 1em;
+            box-sizing: border-box;
+            --column-color: turquoise;
             border-bottom: 1pt solid var(--column-color);
             border-right: 1pt solid var(--column-color);
         }
