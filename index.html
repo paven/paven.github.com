@@ -55,6 +55,9 @@
         #trakt {
             --column-color: rgb(237, 28, 36);
         }
+        #lastfm {
+            --column-color: rgb(210, 0, 0);
+        }
         #mastodon {
             --column-color: rgb(140, 120, 255);
         }
@@ -115,6 +118,12 @@
     <h1><a href="https://fosstodon.org/@paven" rel="me">Mastodon</a></h1>
     <div class="posts" id="mastodon-posts"><span style="color:grey">Loading...</span></div>
     <a href="https://fosstodon.org/@paven">All posts &rarr;</a>
+</div>
+<div id="lastfm" class="column">
+    <h1><a href="https://www.last.fm/user/Paven" rel="me">Last.fm</a></h1>
+    <p>What I've been listening to.</p>
+    <div class="posts" id="lastfm-posts"><span style="color:grey">Loading...</span></div>
+    <a href="https://www.last.fm/user/Paven/listening-report">All history &rarr;</a>
 </div>
 <div id="trakt" class="column">
     <h1><a href="https://trakt.tv/users/thepaven" rel="me">Trakt</a></h1>
@@ -197,6 +206,24 @@ fetch('https://fosstodon.org/api/v1/accounts/110272677670008247/statuses?limit=3
     .catch(() => {
         document.getElementById('mastodon-posts').textContent = 'Could not load posts.';
     });
+</script>
+<script>
+fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Paven&api_key=3986bed7a3ed435406017b0e2c474273&format=json&limit=3')
+    .then(r => r.json())
+    .then(data => {
+        const container = document.getElementById('lastfm-posts');
+        container.innerHTML = '';
+        const tracks = (data.recenttracks && data.recenttracks.track) || [];
+        tracks.forEach(track => {
+            const a = document.createElement('a');
+            a.href = track.url;
+            a.textContent = `${track.artist['#text']} - ${track.name}`;
+            container.appendChild(a);
+            container.appendChild(document.createElement('br'));
+        });
+        if (!tracks.length) container.textContent = 'No tracks found.';
+    })
+    .catch(() => { document.getElementById('lastfm-posts').textContent = 'Could not load tracks.'; });
 </script>
 <script>
 fetch('https://api.trakt.tv/users/thepaven/history?limit=3', {
