@@ -48,6 +48,9 @@
         #society {
             --column-color: rgb(80, 220, 120);
         }
+        #bluesky {
+            --column-color: rgb(50, 170, 255);
+        }
         .column a {
             color: var(--column-color);
         }
@@ -113,6 +116,35 @@
     </div>
     <a href="https://www.howtoknow.se/blog/">All posts &rarr;</a>
 </div>
-<!-- Add more columns if needed... -->
+<div id="bluesky" class="column">
+    <h1><a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky</a></h1>
+    <div class="posts" id="bluesky-posts"><span style="color:grey">Loading...</span></div>
+    <a href="https://bsky.app/profile/acyclic.eu">All posts &rarr;</a>
+</div>
+<script>
+fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=acyclic.eu&limit=3')
+    .then(r => r.json())
+    .then(data => {
+        const container = document.getElementById('bluesky-posts');
+        container.innerHTML = '';
+        (data.feed || []).slice(0, 3).forEach(item => {
+            const text = item.post.record.text;
+            const handle = item.post.author.handle;
+            const id = item.post.uri.split('/').pop();
+            const url = `https://bsky.app/profile/${handle}/post/${id}`;
+            const a = document.createElement('a');
+            a.href = url;
+            a.textContent = text.length > 80 ? text.slice(0, 80) + '…' : text;
+            container.appendChild(a);
+            container.appendChild(document.createElement('br'));
+        });
+        if (!data.feed || data.feed.length === 0) {
+            container.textContent = 'No posts found.';
+        }
+    })
+    .catch(() => {
+        document.getElementById('bluesky-posts').textContent = 'Could not load posts.';
+    });
+</script>
 </body>
 </html>
