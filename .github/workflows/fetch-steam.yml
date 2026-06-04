@@ -34,17 +34,15 @@ jobs:
               owned = fetch(f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key={key}&steamid={steamid}&include_appinfo=true&include_played_free_games=true&format=json')
               games = owned.get('response', {}).get('games', [])
               games.sort(key=lambda g: g.get('playtime_forever', 0), reverse=True)
-              playtime_key = 'playtime_forever'
           else:
               games.sort(key=lambda g: g.get('playtime_2weeks', 0), reverse=True)
-              playtime_key = 'playtime_2weeks'
 
           top = games[:3]
 
           os.makedirs('_data', exist_ok=True)
           with open('_data/steam_games.yml', 'w') as f:
               for g in top:
-                  minutes = g.get(playtime_key, 0)
+                  minutes = g.get('playtime_forever', 0)
                   hours = round(minutes / 60, 1)
                   name = g['name'].replace("'", "''")
                   appid = g['appid']
