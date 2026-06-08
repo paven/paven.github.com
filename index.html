@@ -151,7 +151,7 @@
     <p>What I've been playing.</p>
     <div class="posts">
     {% for game in site.data.steam_games %}
-    <a href="{{ game.url }}">{{ game.name }}</a> <span style="color:#aaa">{{ game.hours }}h</span><br/>
+    <a href="{{ game.url }}">{{ game.name }} — {{ game.hours }}h</a>
     {% endfor %}
     </div>
     <a href="https://steamcommunity.com/profiles/76561198031322043/games/">All games &rarr;</a>
