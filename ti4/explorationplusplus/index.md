@@ -106,3 +106,7 @@ permalink: /ti4/explorationplusplus/
     </li>
   </ol>
 </div>
+
+---
+
+<p style="color: #555; font-size: 0.85em;">TODO: Invite linkherox to review</p>
