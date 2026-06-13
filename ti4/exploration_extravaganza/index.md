@@ -65,11 +65,11 @@ permalink: /ti4/exploration_extravaganza/
   </div>
   <div class="secondary">
     <strong>Secondary:</strong><br>
-    Spend 1 token from your strategy pool to participate in the splice.
+    Spend 1 token from your strategy to participate in the splice.
   </div>
 </div>
 
-<p><strong>Splice:</strong> When splicing, each participating player claims 1 tile from the drawn ones and places that tile so that it is touching a system. You may then place a destroyer in that system. Return unclaimed tiles to their stack.</p>
+<p><strong>Splice:</strong> When splicing, participating player claims 1 tile from the drawn ones and places that tile so that it is touching a system. You may then place a destroyer in that system. Return unclaimed tiles to their stack.</p>
 
 ---
 
@@ -88,7 +88,7 @@ permalink: /ti4/exploration_extravaganza/
 </div>
 
 <div class="rule-block">
-  <p>When performing a tactical action, you may — before deciding a system — do the following:</p>
+  <p>When doing a tactical action, you may before deciding system:</p>
   <ol>
     <li>
       Roll a die. On a result of 1–4, draw a random unused red tile; on a result of 5–10, draw a random unused blue tile.
