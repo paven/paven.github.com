@@ -9,9 +9,9 @@ permalink: /ti4/explorationplusplus/
     padding-bottom: 0.5em;
     margin-bottom: 2em;
   }
-  .page-header h1 { color: lime; margin: 0; }
+  .page-header h1 { color: #E8770A; margin: 0; }
   .page-header .version { color: #555; font-size: 0.85em; margin-top: 0.3em; }
-  .back { display: block; margin-bottom: 2em; font-size: 0.85em; }
+  .back { display: block; margin-bottom: 2em; font-size: 0.85em; color: #E8770A; }
   .lore {
     color: #666;
     font-style: italic;
@@ -20,7 +20,7 @@ permalink: /ti4/explorationplusplus/
     margin-bottom: 2em;
     max-width: 40em;
   }
-  h2 { color: lime; margin-top: 2em; }
+  h2 { color: #E8770A; margin-top: 2em; }
   h3 { color: #aaa; margin-top: 1.5em; }
   h4 { color: #888; }
   .rule-block {
