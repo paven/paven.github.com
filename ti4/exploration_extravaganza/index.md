@@ -50,7 +50,7 @@ permalink: /ti4/exploration_extravaganza/
 </div>
 
 <div class="rule-block">
-  <p>Only Mecathol Rex, faction systems, and nexus are placed at setup. Players start with 3 trade goods.</p>
+  <p>Only Mecathol Rex, faction systems, and nexus are placed at setup. Players start with 3 trade goods and 2 extra strategy tokens.</p>
 </div>
 
 ---
@@ -92,7 +92,7 @@ permalink: /ti4/exploration_extravaganza/
   <p>When doing a tactical action, you may before deciding system:</p>
   <ol>
     <li>
-      Roll a die. On a result of 1–4, draw a random unused red tile; on a result of 5–10, draw a random unused blue tile.
+      Spend a strategy token or half your trade goods to roll a die. On a result of 1–4, draw a random unused red tile; on a result of 5–10, draw a random unused blue tile.
       <ul>
         <li>If you hold the Creuss card, this system is considered adjacent to all systems containing your units this round.</li>
       </ul>
