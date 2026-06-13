@@ -50,18 +50,18 @@ permalink: /ti4/exploration_extravaganza/
 </div>
 
 <div class="rule-block">
-  <p>Only Mecathol Rex, faction systems, and nexus are placed at setup. Players start with 2 extra strategy tokens.</p>
+  <p>Only Mecathol Rex, faction systems, and nexus are placed at setup. Players start with 3 trade goods.</p>
 </div>
 
 ---
 
-<h2>Strategy Card 9 — Planetary Stabilisation</h2>
+<h2>Strategy Card 9 — Turbulence</h2>
 
 <div class="rule-block">
   <div class="primary">
     <strong>Primary:</strong><br>
     Initiate a red or blue system tile splice.<br>
-    Place a Creuss wormhole token into a system. Then perform the Creuss Paradigm or hero ability. Then gain that Creuss card (even from another player's hand, even if purged.)
+    Then gain that Creuss card (even from another player's hand, even if purged.)
   </div>
   <div class="secondary">
     <strong>Secondary:</strong><br>
@@ -69,14 +69,14 @@ permalink: /ti4/exploration_extravaganza/
   </div>
 </div>
 
-<p><strong>Splice:</strong> When splicing, participating player claims 1 tile from the drawn ones and places that tile so that it is touching a system. You may then place a destroyer in that system. Return unclaimed tiles to their stack.</p>
+<p><strong>Splice:</strong> A participating player claims 1 tile from the drawn ones and places that tile so that it is touching a system. Gain control of and explore up to one planet in the system.</p>
 
 ---
 
 <h2>Ghost Experiment — Action Card (x2)</h2>
 
 <div class="rule-block">
-  <p>Place a Creuss wormhole token into a system. Then perform the Creuss Paradigm or hero ability. Then gain that Creuss card (even from another player's hand, even if purged.) Instead of discarding this card, place it on top of the action card deck.</p>
+  <p><strong>Action:</strong> Place a Creuss wormhole token into a system. Then perform the Creuss Paradigm or hero ability. Then gain that Creuss card (even from another player's hand, even if purged.) Instead of discarding this card, place it on top of the action card deck.</p>
 </div>
 
 ---
@@ -93,15 +93,15 @@ permalink: /ti4/exploration_extravaganza/
     <li>
       Roll a die. On a result of 1–4, draw a random unused red tile; on a result of 5–10, draw a random unused blue tile.
       <ul>
-        <li>If the system contains no planets, place a frontier token there and gain 5 TG.</li>
         <li>If you hold the Creuss card, this system is considered adjacent to all systems containing your units this round.</li>
       </ul>
     </li>
     <li>
       Place that tile adjacent to a system with one of your units, so that it is touching a system.
       <ul>
-        <li>Spend 1 influence for each ring away from Mecathol Rex.</li>
-        <li>Or spend 1 strategy token and spend half your trade goods.</li>
+        <li>If the system contains no planets, place a frontier token there and gain 3 TG.</li>
+        <li>Gain 1 TG for each other system tile it touches.</li>
+        <li>Spend 1 influence for each ring away from Mecathol Rex start position it is placed.</li>
       </ul>
     </li>
   </ol>
