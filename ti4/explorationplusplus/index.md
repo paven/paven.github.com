@@ -5,7 +5,7 @@ permalink: /ti4/explorationplusplus/
 ---
 <style>
   .page-header {
-    border-bottom: 1pt solid lime;
+    border-bottom: 1pt solid #E8770A;
     padding-bottom: 0.5em;
     margin-bottom: 2em;
   }
@@ -33,7 +33,7 @@ permalink: /ti4/explorationplusplus/
     margin: 0.5em 0;
     border-left: 3px solid #333;
   }
-  .primary strong, .secondary strong { color: lime; }
+  .primary strong, .secondary strong { color: #E8770A; }
   hr { border-color: #222; margin: 2em 0; }
 </style>
 
