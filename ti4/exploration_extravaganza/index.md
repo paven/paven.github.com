@@ -61,7 +61,8 @@ permalink: /ti4/exploration_extravaganza/
   <div class="primary">
     <strong>Primary:</strong><br>
     Initiate a red or blue system tile splice.<br>
-    Then gain that Creuss card (even from another player's hand, even if purged.)
+    Then gain that Creuss card (even from another player's hand, even if purged.)<br>
+    After the splice you may activate the system without placing a command token.
   </div>
   <div class="secondary">
     <strong>Secondary:</strong><br>
