@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Exploration ++ 0.11"
+title: "Exploration Extravaganza 0.11"
 permalink: /ti4/exploration_extravaganza/
 ---
 <style>
@@ -40,7 +40,7 @@ permalink: /ti4/exploration_extravaganza/
 <a class="back" href="/">&larr; mumma.nu</a>
 
 <div class="page-header">
-  <h1>Exploration ++</h1>
+  <h1>Exploration Extravaganza</h1>
   <div class="version">v0.11 — Twilight's Fall variant</div>
 </div>
 
