@@ -36,8 +36,18 @@
         #patrik {
             --column-color: rgb(230, 80, 210);
             border: none;
-            border-left: 3pt dashed var(--column-color);
             break-inside: avoid;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0.4em;
+            left: 0.4em;
+            width: 100vw;
+            height: 100vh;
+            border-left: 3pt dashed rgb(230, 80, 210);
+            border-top: 3pt dashed rgb(230, 80, 210);
+            pointer-events: none;
         }
         #boardgames {
             --column-color: orange;
