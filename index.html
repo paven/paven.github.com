@@ -37,6 +37,7 @@
             --column-color: rgb(230, 80, 210);
             border: none;
             border-left: 3pt dashed var(--column-color);
+            break-inside: avoid;
         }
         #boardgames {
             --column-color: orange;
@@ -100,6 +101,8 @@
         }
         .group {
             break-inside: avoid;
+            page-break-inside: avoid;
+            display: flow-root;
             border-left: 1pt dotted #555;
             padding-left: 0.5em;
             margin-bottom: 0.5em;
