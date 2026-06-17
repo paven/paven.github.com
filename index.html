@@ -238,7 +238,7 @@
         <p>Where I am speaking, organising or attending.</p>
         <div class="posts">
         {% for event in site.data.events %}
-        {% if event.url != '' %}<a href="{{ event.url }}">{{ event.start }} {{ event.name }}</a>{% else %}<span>{{ event.start }} {{ event.name }}</span>{% endif %}
+        {% if event.url != '' %}<a href="{{ event.url }}">{{ event.start }} {{ event.name }}</a>{% else %}<a href="https://www.google.com/search?q={{ event.name | uri_escape }}">{{ event.start }} {{ event.name }}</a>{% endif %}
         {% endfor %}
         </div>
     </div>
