@@ -1,0 +1,45 @@
+name: Fetch books
+
+on:
+  push:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  fetch-books:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch books
+        run: |
+          python3 - <<'EOF'
+          import urllib.request
+          import os
+          from xml.etree import ElementTree as ET
+
+          FEED_URL = 'https://ramblingreaders.org/user/acyclic/books/read/rss'
+
+          req = urllib.request.Request(FEED_URL, headers={'User-Agent': 'mumma.nu/1.0'})
+          with urllib.request.urlopen(req, timeout=15) as r:
+              text = r.read().decode('utf-8', errors='ignore')
+
+          root = ET.fromstring(text)
+          items = root.findall('./channel/item')[:3]
+
+          os.makedirs('_data', exist_ok=True)
+          with open('_data/books.yml', 'w') as f:
+              for item in items:
+                  title = item.findtext('title', '').replace("'", "''")
+                  link = item.findtext('link', '')
+                  f.write(f"- title: '{title}'\n  url: '{link}'\n")
+
+          print(f'Wrote {len(items)} books')
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _data/books.yml
+          git diff --cached --quiet || (git commit -m "Update books" && git push)
