@@ -1,0 +1,89 @@
+name: Fetch GPodder podcasts
+
+on:
+  push:
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  fetch-podcasts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch podcast listen history
+        env:
+          GPODDER_USER: ${{ secrets.GPODDER_USER }}
+          GPODDER_PASSWORD: ${{ secrets.GPODDER_PASSWORD }}
+        run: |
+          python3 - <<'EOF'
+          import urllib.request
+          import json
+          import os
+          import base64
+          from collections import defaultdict
+          from xml.etree import ElementTree as ET
+
+          user = os.environ.get('GPODDER_USER', '')
+          password = os.environ.get('GPODDER_PASSWORD', '')
+
+          if not user or not password:
+              print('GPODDER_USER or GPODDER_PASSWORD not set, skipping.')
+              exit(0)
+
+          creds = base64.b64encode(f'{user}:{password}'.encode()).decode()
+          auth_headers = {'Authorization': f'Basic {creds}'}
+
+          def fetch_json(url):
+              req = urllib.request.Request(url, headers=auth_headers)
+              with urllib.request.urlopen(req, timeout=15) as r:
+                  return json.load(r)
+
+          def fetch_podcast_name(feed_url):
+              try:
+                  req = urllib.request.Request(feed_url, headers={'User-Agent': 'mumma.nu/1.0'})
+                  with urllib.request.urlopen(req, timeout=10) as r:
+                      text = r.read().decode('utf-8', errors='ignore')
+                  root = ET.fromstring(text)
+                  title_el = root.find('./channel/title')
+                  if title_el is not None and title_el.text:
+                      return title_el.text.strip()
+              except Exception:
+                  pass
+              return feed_url.split('/')[2]
+
+          data = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since=0')
+          actions = data.get('actions', [])
+
+          podcast_seconds = defaultdict(int)
+          for action in actions:
+              if action.get('action') == 'play':
+                  position = action.get('position') or 0
+                  started = action.get('started') or 0
+                  podcast_seconds[action['podcast']] += max(0, position - started)
+
+          top = sorted(podcast_seconds.items(), key=lambda x: x[1], reverse=True)[:5]
+
+          results = []
+          for feed_url, seconds in top:
+              hours = round(seconds / 3600, 1)
+              if hours < 0.1:
+                  continue
+              name = fetch_podcast_name(feed_url)
+              results.append({'name': name, 'url': feed_url, 'hours': hours})
+
+          os.makedirs('_data', exist_ok=True)
+          with open('_data/podcasts.yml', 'w') as f:
+              for p in results:
+                  name = p['name'].replace("'", "''")
+                  f.write(f"- name: '{name}'\n  url: '{p['url']}'\n  hours: {p['hours']}\n")
+
+          print(f'Wrote {len(results)} podcasts')
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _data/podcasts.yml
+          git diff --cached --quiet || (git commit -m "Update podcasts" && git push)
