@@ -1,0 +1,93 @@
+name: Fetch calendar events
+
+on:
+  push:
+  schedule:
+    - cron: '0 6 * * *'
+
+jobs:
+  fetch-events:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install icalendar
+        run: pip install icalendar
+
+      - name: Fetch events
+        run: |
+          python3 - <<'EOF'
+          import urllib.request
+          import os
+          from datetime import datetime, timezone, date
+          from icalendar import Calendar
+
+          CALENDAR_URL = 'https://calendar.google.com/calendar/ical/fb499a4aecbb57e8a4178de1d1084b6ed70454d8685558891f20906e5821cd4e%40group.calendar.google.com/public/basic.ics'
+
+          with urllib.request.urlopen(CALENDAR_URL, timeout=15) as r:
+              cal = Calendar.from_ical(r.read())
+
+          now = datetime.now(timezone.utc)
+          today = now.date()
+
+          def to_date(dt):
+              if isinstance(dt, datetime):
+                  if dt.tzinfo is None:
+                      return dt.replace(tzinfo=timezone.utc)
+                  return dt
+              if isinstance(dt, date):
+                  return datetime(dt.year, dt.month, dt.day, tzinfo=timezone.utc)
+              return None
+
+          events = []
+          for component in cal.walk():
+              if component.name != 'VEVENT':
+                  continue
+              summary = str(component.get('SUMMARY', ''))
+              url = str(component.get('URL', ''))
+              dtstart = to_date(component.get('DTSTART').dt)
+              dtend_raw = component.get('DTEND')
+              dtend = to_date(dtend_raw.dt) if dtend_raw else dtstart
+              if not dtstart:
+                  continue
+              events.append({'name': summary, 'url': url, 'start': dtstart, 'end': dtend})
+
+          events.sort(key=lambda e: e['start'])
+
+          past = [e for e in events if e['end'] < now]
+          current = [e for e in events if e['start'] <= now <= e['end']]
+          upcoming = [e for e in events if e['start'] > now]
+
+          selected = []
+          selected.extend(current)
+          remaining = 3 - len(selected)
+          selected.extend(upcoming[:remaining])
+          remaining = 3 - len(selected)
+          if past and remaining > 0:
+              selected.append(past[-1])
+          selected.sort(key=lambda e: e['start'])
+
+          os.makedirs('_data', exist_ok=True)
+          with open('_data/events.yml', 'w') as f:
+              for e in selected:
+                  name = e['name'].replace("'", "''")
+                  url = e['url']
+                  start = e['start'].strftime('%Y-%m-%d')
+                  end = e['end'].strftime('%Y-%m-%d')
+                  if e['end'] < now:
+                      status = 'past'
+                  elif e['start'] <= now <= e['end']:
+                      status = 'current'
+                  else:
+                      status = 'upcoming'
+                  f.write(f"- name: '{name}'\n  url: '{url}'\n  start: '{start}'\n  end: '{end}'\n  status: '{status}'\n")
+
+          print(f'Wrote {len(selected)} events')
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _data/events.yml
+          git diff --cached --quiet || (git commit -m "Update events" && git push)
