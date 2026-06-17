@@ -3,7 +3,7 @@ name: Fetch GPodder podcasts
 on:
   push:
   schedule:
-    - cron: '0 6 * * 1'
+    - cron: '0 6 * * *'
 
 jobs:
   fetch-podcasts:
@@ -23,6 +23,7 @@ jobs:
           import base64
           from collections import defaultdict
           from xml.etree import ElementTree as ET
+          from datetime import datetime, timezone, timedelta
 
           user = os.environ.get('GPODDER_USER', '')
           password = os.environ.get('GPODDER_PASSWORD', '')
@@ -52,25 +53,44 @@ jobs:
                   pass
               return feed_url.split('/')[2]
 
-          data = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since=0')
-          actions = data.get('actions', [])
+          two_weeks_ago = int((datetime.now(timezone.utc) - timedelta(weeks=2)).timestamp())
+          data_all = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since=0')
+          data_recent = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since={two_weeks_ago}')
+          all_actions = data_all.get('actions', [])
+          recent_actions = data_recent.get('actions', [])
 
-          podcast_seconds = defaultdict(int)
-          for action in actions:
+          # Podcasts active in last 2 weeks
+          recent_podcasts = set(
+              a['podcast'] for a in recent_actions
+              if a.get('action') == 'play'
+          )
+
+          # All-time listen time per podcast
+          all_time_seconds = defaultdict(int)
+          for action in all_actions:
               if action.get('action') == 'play':
                   position = action.get('position') or 0
                   started = action.get('started') or 0
-                  podcast_seconds[action['podcast']] += max(0, position - started)
+                  all_time_seconds[action['podcast']] += max(0, position - started)
 
-          top = sorted(podcast_seconds.items(), key=lambda x: x[1], reverse=True)[:5]
+          # Recent listen time for ranking
+          recent_seconds = defaultdict(int)
+          for action in recent_actions:
+              if action.get('action') == 'play':
+                  position = action.get('position') or 0
+                  started = action.get('started') or 0
+                  recent_seconds[action['podcast']] += max(0, position - started)
+
+          # Pick top 5 by recent listen time, display all-time hours
+          top = sorted(recent_podcasts, key=lambda p: recent_seconds[p], reverse=True)[:5]
 
           results = []
-          for feed_url, seconds in top:
-              hours = round(seconds / 3600, 1)
-              if hours < 0.1:
+          for feed_url in top:
+              total_hours = round(all_time_seconds[feed_url] / 3600, 1)
+              if total_hours < 0.1:
                   continue
               name = fetch_podcast_name(feed_url)
-              results.append({'name': name, 'url': feed_url, 'hours': hours})
+              results.append({'name': name, 'url': feed_url, 'hours': total_hours})
 
           os.makedirs('_data', exist_ok=True)
           with open('_data/podcasts.yml', 'w') as f:
