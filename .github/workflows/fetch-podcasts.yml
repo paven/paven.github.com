@@ -27,6 +27,7 @@ jobs:
 
           user = os.environ.get('GPODDER_USER', '')
           password = os.environ.get('GPODDER_PASSWORD', '')
+          username = 'paven'
 
           if not user or not password:
               print('GPODDER_USER or GPODDER_PASSWORD not set, skipping.')
@@ -54,8 +55,8 @@ jobs:
               return feed_url.split('/')[2]
 
           two_weeks_ago = int((datetime.now(timezone.utc) - timedelta(weeks=2)).timestamp())
-          data_all = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since=0')
-          data_recent = fetch_json(f'https://gpodder.net/api/2/episodes/{user}.json?since={two_weeks_ago}')
+          data_all = fetch_json(f'https://gpodder.net/api/2/episodes/{username}.json?since=0')
+          data_recent = fetch_json(f'https://gpodder.net/api/2/episodes/{username}.json?since={two_weeks_ago}')
           all_actions = data_all.get('actions', [])
           recent_actions = data_recent.get('actions', [])
 
