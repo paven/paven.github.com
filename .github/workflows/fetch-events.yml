@@ -64,7 +64,7 @@ jobs:
           selected.extend(upcoming[:remaining])
           remaining = 3 - len(selected)
           if past and remaining > 0:
-              selected.append(past[-1])
+              selected.extend(past[-remaining:])
           selected.sort(key=lambda e: e['start'])
 
           os.makedirs('_data', exist_ok=True)
