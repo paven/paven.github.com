@@ -34,7 +34,10 @@ jobs:
               exit(0)
 
           creds = base64.b64encode(f'{user}:{password}'.encode()).decode()
-          auth_headers = {'Authorization': f'Basic {creds}'}
+          auth_headers = {
+              'Authorization': f'Basic {creds}',
+              'User-Agent': 'gPodder/3.11.0',
+          }
 
           # Login to get session cookie
           login_req = urllib.request.Request(

@@ -1,0 +1,104 @@
+#!/usr/bin/env python3
+"""Fetch GPodder listen history and write _data/podcasts.yml.
+
+Usage:
+    GPODDER_USER=paven GPODDER_PASSWORD=secret python3 scripts/fetch-podcasts.py
+"""
+import urllib.request
+import json
+import os
+import base64
+from collections import defaultdict
+from xml.etree import ElementTree as ET
+from datetime import datetime, timezone, timedelta
+
+user = os.environ.get('GPODDER_USER', '')
+password = os.environ.get('GPODDER_PASSWORD', '')
+username = 'paven'
+
+if not user or not password:
+    print('GPODDER_USER or GPODDER_PASSWORD not set, skipping.')
+    exit(0)
+
+creds = base64.b64encode(f'{user}:{password}'.encode()).decode()
+auth_headers = {
+    'Authorization': f'Basic {creds}',
+    'User-Agent': 'gPodder/3.11.0',
+}
+
+# Login to get session cookie
+login_req = urllib.request.Request(
+    f'https://gpodder.net/api/2/auth/{username}/login.json',
+    data=b'',
+    method='POST',
+    headers=auth_headers
+)
+opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor())
+try:
+    with opener.open(login_req, timeout=15) as r:
+        print(f'Login status: {r.status}')
+except urllib.error.HTTPError as e:
+    print(f'Login failed: {e.code} {e.reason}')
+    print(e.read().decode('utf-8', errors='ignore'))
+    exit(1)
+
+def fetch_json(url):
+    req = urllib.request.Request(url, headers=auth_headers)
+    with opener.open(req, timeout=15) as r:
+        return json.load(r)
+
+def fetch_podcast_name(feed_url):
+    try:
+        req = urllib.request.Request(feed_url, headers={'User-Agent': 'mumma.nu/1.0'})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            text = r.read().decode('utf-8', errors='ignore')
+        root = ET.fromstring(text)
+        title_el = root.find('./channel/title')
+        if title_el is not None and title_el.text:
+            return title_el.text.strip()
+    except Exception:
+        pass
+    return feed_url.split('/')[2]
+
+two_weeks_ago = int((datetime.now(timezone.utc) - timedelta(weeks=2)).timestamp())
+data_all = fetch_json(f'https://gpodder.net/api/2/episodes/{username}.json?since=0')
+data_recent = fetch_json(f'https://gpodder.net/api/2/episodes/{username}.json?since={two_weeks_ago}')
+all_actions = data_all.get('actions', [])
+recent_actions = data_recent.get('actions', [])
+
+recent_podcasts = set(
+    a['podcast'] for a in recent_actions
+    if a.get('action') == 'play'
+)
+
+all_time_seconds = defaultdict(int)
+for action in all_actions:
+    if action.get('action') == 'play':
+        position = action.get('position') or 0
+        started = action.get('started') or 0
+        all_time_seconds[action['podcast']] += max(0, position - started)
+
+recent_seconds = defaultdict(int)
+for action in recent_actions:
+    if action.get('action') == 'play':
+        position = action.get('position') or 0
+        started = action.get('started') or 0
+        recent_seconds[action['podcast']] += max(0, position - started)
+
+top = sorted(recent_podcasts, key=lambda p: recent_seconds[p], reverse=True)[:5]
+
+results = []
+for feed_url in top:
+    total_hours = round(all_time_seconds[feed_url] / 3600, 1)
+    if total_hours < 0.1:
+        continue
+    name = fetch_podcast_name(feed_url)
+    results.append({'name': name, 'url': feed_url, 'hours': total_hours})
+
+os.makedirs('_data', exist_ok=True)
+with open('_data/podcasts.yml', 'w') as f:
+    for p in results:
+        name = p['name'].replace("'", "''")
+        f.write(f"- name: '{name}'\n  url: '{p['url']}'\n  hours: {p['hours']}\n")
+
+print(f'Wrote {len(results)} podcasts')
