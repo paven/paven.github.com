@@ -67,8 +67,8 @@
         #events {
             --column-color: rgb(255, 200, 60);
         }
-        #bluesky {
-            --column-color: rgb(50, 170, 255);
+        #social {
+            --column-color: rgb(95, 145, 255);
         }
         #trakt {
             --column-color: rgb(237, 28, 36);
@@ -84,9 +84,6 @@
         }
         #podcasts {
             --column-color: rgb(255, 120, 60);
-        }
-        #mastodon {
-            --column-color: rgb(140, 120, 255);
         }
         .column a {
             color: white;
@@ -180,15 +177,12 @@
         </div>
         <a href="/society">All posts &rarr;</a>
     </div>
-    <div id="bluesky" class="column">
-        <h1><a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky</a></h1>
-        <div class="posts" id="bluesky-posts"><span style="color:#aaa">Loading...</span></div>
-        <a href="https://bsky.app/profile/acyclic.eu">All posts &rarr;</a>
-    </div>
-    <div id="mastodon" class="column">
-        <h1><a href="https://fosstodon.org/@paven" rel="me">Mastodon</a></h1>
-        <div class="posts" id="mastodon-posts"><span style="color:#aaa">Loading...</span></div>
-        <a href="https://fosstodon.org/@paven">All posts &rarr;</a>
+    <div id="social" class="column">
+        <h1>Social</h1>
+        <div class="posts" id="social-posts"><span style="color:#aaa">Loading...</span></div>
+        <a href="https://fosstodon.org/@paven" rel="me">Mastodon posts &rarr;</a>
+        <br/>
+        <a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky posts &rarr;</a>
     </div>
 </div>
 <div class="group">
@@ -287,49 +281,33 @@ loadAtomFeed('https://howtoknow.se/atom.xml', 'howtoknow-posts');
 loadAtomFeed('https://regin.mumma.nu/atom.xml', 'regin-posts');
 </script>
 <script>
-fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=acyclic.eu&limit=3')
-    .then(r => r.json())
-    .then(data => {
-        const container = document.getElementById('bluesky-posts');
-        container.innerHTML = '';
-        (data.feed || []).slice(0, 3).forEach(item => {
-            const text = item.post.record.text;
-            const handle = item.post.author.handle;
-            const id = item.post.uri.split('/').pop();
-            const url = `https://bsky.app/profile/${handle}/post/${id}`;
-            const a = document.createElement('a');
-            a.href = url;
-            a.textContent = text.length > 80 ? text.slice(0, 80) + '…' : text;
-            container.appendChild(a);
-            container.appendChild(document.createElement('br'));
-        });
-        if (!data.feed || data.feed.length === 0) {
-            container.textContent = 'No posts found.';
-        }
-    })
-    .catch(() => {
-        document.getElementById('bluesky-posts').textContent = 'Could not load posts.';
+Promise.all([
+    fetch('https://fosstodon.org/api/v1/accounts/110272677670008247/statuses?limit=5&exclude_replies=true&exclude_reblogs=true').then(r => r.json()).catch(() => []),
+    fetch('https://public.api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=acyclic.eu&limit=5').then(r => r.json()).catch(() => ({}))
+]).then(([mastodon, bluesky]) => {
+    const posts = [];
+    (mastodon || []).forEach(post => {
+        const text = post.content.replace(/<[^>]+>/g, '');
+        posts.push({ text: text.length > 80 ? text.slice(0, 80) + '…' : text, url: post.url, date: new Date(post.created_at) });
     });
-</script>
-<script>
-fetch('https://fosstodon.org/api/v1/accounts/110272677670008247/statuses?limit=3&exclude_replies=true&exclude_reblogs=true')
-    .then(r => r.json())
-    .then(posts => {
-        const container = document.getElementById('mastodon-posts');
-        container.innerHTML = '';
-        (posts || []).forEach(post => {
-            const text = post.content.replace(/<[^>]+>/g, '');
-            const a = document.createElement('a');
-            a.href = post.url;
-            a.textContent = text.length > 80 ? text.slice(0, 80) + '…' : text;
-            container.appendChild(a);
-            container.appendChild(document.createElement('br'));
-        });
-        if (!posts || posts.length === 0) container.textContent = 'No posts found.';
-    })
-    .catch(() => {
-        document.getElementById('mastodon-posts').textContent = 'Could not load posts.';
+    ((bluesky.feed || [])).forEach(item => {
+        const text = item.post.record.text;
+        const handle = item.post.author.handle;
+        const id = item.post.uri.split('/').pop();
+        posts.push({ text: text.length > 80 ? text.slice(0, 80) + '…' : text, url: `https://bsky.app/profile/${handle}/post/${id}`, date: new Date(item.post.record.createdAt) });
     });
+    posts.sort((a, b) => b.date - a.date);
+    const container = document.getElementById('social-posts');
+    container.innerHTML = '';
+    posts.slice(0, 3).forEach(post => {
+        const a = document.createElement('a');
+        a.href = post.url;
+        a.textContent = post.text;
+        container.appendChild(a);
+        container.appendChild(document.createElement('br'));
+    });
+    if (!posts.length) container.textContent = 'No posts found.';
+});
 </script>
 <script>
 fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Paven&api_key=3986bed7a3ed435406017b0e2c474273&format=json&limit=3')
