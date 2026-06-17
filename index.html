@@ -180,17 +180,6 @@
         </div>
         <a href="/society">All posts &rarr;</a>
     </div>
-    {% if site.data.events %}
-    <div id="events" class="column">
-        <h1>Conferences and meetups</h1>
-        <p>Where I am speaking, organising or attending.</p>
-        <div class="posts">
-        {% for event in site.data.events %}
-        <a href="{{ event.url }}">{{ event.start }} {{ event.name }}</a>
-        {% endfor %}
-        </div>
-    </div>
-    {% endif %}
     <div id="bluesky" class="column">
         <h1><a href="https://bsky.app/profile/acyclic.eu" rel="me">Bluesky</a></h1>
         <div class="posts" id="bluesky-posts"><span style="color:#aaa">Loading...</span></div>
@@ -237,6 +226,17 @@
 </div>
 <div class="group">
     <span class="group-label">Professional</span>
+    {% if site.data.events %}
+    <div id="events" class="column">
+        <h1>Conferences and meetups</h1>
+        <p>Where I am speaking, organising or attending.</p>
+        <div class="posts">
+        {% for event in site.data.events %}
+        <a href="{{ event.url }}">{{ event.start }} {{ event.name }}</a>
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
     <div id="acyclic" class="column">
         <h1><a href="https://acyclic.eu" rel="me">Acyclic</a></h1>
         <p>Software Development Leader with 15 years of experience. Passionate about coaching teams for success.</p>
