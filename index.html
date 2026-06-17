@@ -328,7 +328,7 @@ fetch('https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=Paven
     .catch(() => { document.getElementById('lastfm-posts').textContent = 'Could not load tracks.'; });
 </script>
 <script>
-fetch('https://api.trakt.tv/users/thepaven/history?limit=3', {
+fetch('https://api.trakt.tv/users/thepaven/history?limit=10', {
     headers: {
         'Content-Type': 'application/json',
         'trakt-api-version': '2',
@@ -339,15 +339,21 @@ fetch('https://api.trakt.tv/users/thepaven/history?limit=3', {
     .then(items => {
         const container = document.getElementById('trakt-posts');
         container.innerHTML = '';
+        const seen = new Set();
+        const entries = [];
         (items || []).forEach(item => {
-            const a = document.createElement('a');
             if (item.type === 'movie') {
-                a.href = `https://trakt.tv/movies/${item.movie.ids.slug}`;
-                a.textContent = item.movie.title;
+                entries.push({ href: `https://trakt.tv/movies/${item.movie.ids.slug}`, text: item.movie.title });
             } else {
-                a.href = `https://trakt.tv/shows/${item.show.ids.slug}`;
-                a.textContent = `${item.show.title} S${String(item.episode.season).padStart(2,'0')}E${String(item.episode.number).padStart(2,'0')}`;
+                if (seen.has(item.show.ids.slug)) return;
+                seen.add(item.show.ids.slug);
+                entries.push({ href: `https://trakt.tv/shows/${item.show.ids.slug}`, text: `${item.show.title} S${String(item.episode.season).padStart(2,'0')}E${String(item.episode.number).padStart(2,'0')}` });
             }
+        });
+        entries.slice(0, 3).forEach(entry => {
+            const a = document.createElement('a');
+            a.href = entry.href;
+            a.textContent = entry.text;
             container.appendChild(a);
             container.appendChild(document.createElement('br'));
         });
