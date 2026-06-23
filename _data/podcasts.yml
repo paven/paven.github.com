@@ -1,12 +1,12 @@
 - name: 'Studio Ett'
   url: 'https://api.sr.se/api/rss/pod/4021'
   hours: 2.7
-- name: 'Värvet'
-  url: 'https://feeds.acast.com/public/shows/bf4e5114-fe02-4088-9a07-c1b81a3c615a'
-  hours: 1.0
 - name: 'Security Now (Audio)'
   url: 'https://feeds.twit.tv/sn.xml'
   hours: 19.3
+- name: 'Värvet'
+  url: 'https://feeds.acast.com/public/shows/bf4e5114-fe02-4088-9a07-c1b81a3c615a'
+  hours: 1.0
 - name: 'Dagens Eko'
   url: 'https://api.sr.se/api/rss/pod/itunes/41978'
   hours: 1.0
