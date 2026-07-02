@@ -7,6 +7,6 @@
 - name: 'Security Now (Audio)'
   url: 'https://feeds.twit.tv/sn.xml'
   hours: 19.3
-- name: 'Dagens Eko'
-  url: 'https://api.sr.se/api/rss/pod/itunes/41978'
-  hours: 1.0
+- name: 'Kommentariatet'
+  url: 'https://feeds.libsyn.com/486357/rss'
+  hours: 0.6
