@@ -7,6 +7,3 @@
 - name: 'Security Now (Audio)'
   url: 'https://feeds.twit.tv/sn.xml'
   hours: 19.3
-- name: 'Kommentariatet'
-  url: 'https://feeds.libsyn.com/486357/rss'
-  hours: 0.6
