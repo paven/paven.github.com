@@ -7,6 +7,6 @@
 - name: 'Dagens Eko'
   url: 'https://api.sr.se/api/rss/pod/itunes/41978'
   hours: 1.0
-- name: 'FLOSS Weekly'
-  url: 'https://feeds.libsyn.com/499093/rss'
-  hours: 8.9
+- name: 'Värvet'
+  url: 'https://feeds.acast.com/public/shows/bf4e5114-fe02-4088-9a07-c1b81a3c615a'
+  hours: 1.0
