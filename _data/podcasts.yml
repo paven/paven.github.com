@@ -1,9 +1,9 @@
-- name: 'Studio Ett'
-  url: 'https://api.sr.se/api/rss/pod/4021'
-  hours: 2.7
 - name: 'Security Now (Audio)'
   url: 'https://feeds.twit.tv/sn.xml'
   hours: 19.3
+- name: 'Studio Ett'
+  url: 'https://api.sr.se/api/rss/pod/4021'
+  hours: 2.7
 - name: 'Getting Things Done'
   url: 'https://gettingthingsdone.libsyn.com/rss'
   hours: 2.7
