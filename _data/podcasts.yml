@@ -1,6 +1,0 @@
-- name: 'Studio Ett'
-  url: 'https://api.sr.se/api/rss/pod/4021'
-  hours: 2.7
-- name: 'Det politiska spelet'
-  url: 'https://api.sr.se/api/rss/pod/21597'
-  hours: 8.2
