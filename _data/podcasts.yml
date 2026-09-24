@@ -1,0 +1,3 @@
+- name: 'Security Now (Audio)'
+  url: 'https://feeds.twit.tv/sn.xml'
+  hours: 19.3
