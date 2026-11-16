@@ -1,9 +1,9 @@
+- name: 'RetroArch'
+  url: 'https://store.steampowered.com/app/1118310'
+  hours: 0.6
 - name: 'Stellaris'
   url: 'https://store.steampowered.com/app/281990'
   hours: 1955.2
 - name: 'Cities: Skylines'
   url: 'https://store.steampowered.com/app/255710'
   hours: 448.0
-- name: 'Baldur''s Gate 3'
-  url: 'https://store.steampowered.com/app/1086940'
-  hours: 57.8
